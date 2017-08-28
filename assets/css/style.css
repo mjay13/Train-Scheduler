@@ -1,0 +1,39 @@
+
+/* header */
+
+.jumbotron {
+	border-radius: 0px;
+	background-color: #eee;
+
+}
+.subtitle {
+	text-align: right;
+	font-style: italic;
+}
+
+/* container */
+
+/* content */
+
+/* train shedule */
+
+.train-table {
+	background-color: white;
+}
+
+/* train form */
+
+.form-control {
+	width: 75%;
+}
+
+.train-form {
+	background-color: #DCDCDC;
+}
+
+/* train image */
+
+/* footer */
+.footer {
+	color: grey;
+}
