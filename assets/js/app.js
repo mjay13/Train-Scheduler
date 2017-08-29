@@ -21,6 +21,7 @@ var inputFrequency = 0;
 var nextArrival = "";
 var minutesAway = "";
 var time = moment();
+var minuteMod = 0;
 
 
 // on click for submitting the form to firebase
@@ -39,7 +40,7 @@ $("#submit").on("click", function() {
         inputDestination: inputDestination,
         inputFirstArrival: inputFirstArrival,
         inputFrequency: inputFrequency,
-        //dateAdded: database.ServerValue.TIMESTAMP
+        dateAdded: database.ServerValue.TIMESTAMP //giving me an error that TIMESTAMP is not defined
     });
 
     alert("train added!");
@@ -56,22 +57,50 @@ $("#submit").on("click", function() {
 
 // diplay/add to html
 
-// not sure why is it giving me errors here
+// not sure why is it giving me errors here -- update -- oh look i spelled function wrong!!!
 
-// database.ref(trains).on("child_added", fucntion(snapshot) {
-//	$("#trainInfo").append("<tr><td>" + snapshot.val().inputTrainName + "</td>" + "<td>" + snapshot.val().inputDestination + "</td>" + "<td>" + snapshot.val().inputFrequency + "</td>" + "<td>" + snapshot.val().nextArrival + "</td>" + "<td>" + snapshot.val().minutesAway + "</td></tr>");
-// };
+database.ref().on("child_added", function(snapshot) {
+        $("#trainInfo").html("<tr><td>" + snapshot.val().inputTrainName + "</td>" +
+            "<td>" + snapshot.val().inputDestination + "</td>" +
+            "<td>" + snapshot.val().inputFrequency + "</td>" +
+            "<td>" + snapshot.val().nextArrival + "</td>" +
+            "<td>" + snapshot.val().minutesAway + "</td></tr>");
+    },
+
+    function(errorObject) {
+        console.log("The read failed: " + errorObject.code);
+    });
+
 
 // display/order by child in html
+
+// only displaying last child in html
+database.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function(snapshot) {
+    $("#trainInfo").html("<tr><td>" + snapshot.val().inputTrainName + "</td>" +
+        "<td>" + snapshot.val().inputDestination + "</td>" +
+        "<td>" + snapshot.val().inputFrequency + "</td>" +
+        "<td>" + snapshot.val().nextArrival + "</td>" +
+        "<td>" + snapshot.val().minutesAway + "</td></tr>");
+    console.log("i'm working");
+
+},
+function(errorObject) {
+      console.log("Errors handled: " + errorObject.code);
+    });
 
 // work out the math for the countdown
 
 
 // convert start time to minutes/give a date? input firstArrival = startTime
 // convert current time to minutes "time"
-// time - start time = inBetweenTime
+// time - starTime = inBetweenTime
 // inBetweenTime modulous % inputFrequency = minuteMod
-// inputFrequency - minuteMod = timeRemaining
+// inputFrequency - minuteMod = minutesAway
+
+// math.chain(time)
+//		.minus(startTime)
+//		.modulous(inputFrequency)
+//		.done()???
 
 
 
