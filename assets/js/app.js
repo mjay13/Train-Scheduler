@@ -40,7 +40,7 @@ $("#submit").on("click", function() {
         inputDestination: inputDestination,
         inputFirstArrival: inputFirstArrival,
         inputFrequency: inputFrequency,
-        dateAdded: database.ServerValue.TIMESTAMP //giving me an error that TIMESTAMP is not defined
+        //dateAdded: database.ServerValue.TIMESTAMP //giving me an error that TIMESTAMP is not defined
     });
 
     alert("train added!");
@@ -50,6 +50,10 @@ $("#submit").on("click", function() {
     console.log(inputFirstArrival);
     console.log(inputFrequency);
 
+	inputTrainName = "";
+	inputDestination = "";
+	inputFirstArrival = "";
+	inputFrequency = 0;
 
     return false;
 
@@ -60,7 +64,7 @@ $("#submit").on("click", function() {
 // not sure why is it giving me errors here -- update -- oh look i spelled function wrong!!!
 
 database.ref().on("child_added", function(snapshot) {
-        $("#trainInfo").html("<tr><td>" + snapshot.val().inputTrainName + "</td>" +
+        $("#trainInfo").append("<tr><td>" + snapshot.val().inputTrainName + "</td>" +
             "<td>" + snapshot.val().inputDestination + "</td>" +
             "<td>" + snapshot.val().inputFrequency + "</td>" +
             "<td>" + snapshot.val().nextArrival + "</td>" +
@@ -74,9 +78,9 @@ database.ref().on("child_added", function(snapshot) {
 
 // display/order by child in html
 
-// only displaying last child in html
+// displaying two of the last child hmm
 database.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function(snapshot) {
-    $("#trainInfo").html("<tr><td>" + snapshot.val().inputTrainName + "</td>" +
+    $("#trainInfo").append("<tr><td>" + snapshot.val().inputTrainName + "</td>" +
         "<td>" + snapshot.val().inputDestination + "</td>" +
         "<td>" + snapshot.val().inputFrequency + "</td>" +
         "<td>" + snapshot.val().nextArrival + "</td>" +
