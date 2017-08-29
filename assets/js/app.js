@@ -17,9 +17,9 @@ var database = firebase.database();
 var inputTrainName = "";
 var inputDestination = "";
 var inputFirstArrival = "";
-var inputFrequency = 0;
-var nextArrival = "";
-var minutesAway = "";
+var inputFrequency = 0; 
+var nextArrival = ""; // time in military of next train arriving
+var minutesAway = ""; // how many minutes away the next train is
 var time = moment();
 var minuteMod = 0;
 
@@ -35,12 +35,12 @@ $("#submit").on("click", function() {
     var inputFrequency = $("#inputFrequency").val().trim();
 
     // push "object" to database child "trains"
-    database.ref().push({ //why can't i push this to a child in my database? why can i only push to the root?
+    database.ref("trains").push({ //why can't i push this to a child/create a child in my database? why can i only push to the root? -- it needs to be in string form!
         inputTrainName: inputTrainName,
         inputDestination: inputDestination,
         inputFirstArrival: inputFirstArrival,
         inputFrequency: inputFrequency,
-        dateAdded: firebase.database.ServerValue.TIMESTAMP //giving me an error that TIMESTAMP is not defined
+        dateAdded: firebase.database.ServerValue.TIMESTAMP //giving me an error that TIMESTAMP is not defined -- fixed database here is not the same as the one i created! this is a standard for firebase that cannot be messed with
     });
 
     alert("train added!");
@@ -58,13 +58,30 @@ $("#submit").on("click", function() {
 
 // not sure why is it giving me errors here -- update -- oh look i spelled function wrong!!!
 
-database.ref().on("child_added", function(snapshot) {
+database.ref("trains").on("child_added", function(snapshot) {
         $("#trainInfo").append("<tr><td>" + snapshot.val().inputTrainName + "</td>" +
             "<td>" + snapshot.val().inputDestination + "</td>" +
             "<td>" + snapshot.val().inputFrequency + "</td>" +
             "<td>" + snapshot.val().nextArrival + "</td>" +
             "<td>" + snapshot.val().minutesAway + "</td></tr>");
     },
+
+    
+// convert start time to minutes/give a date? input firstArrival = startTime
+// convert current time to minutes "time"
+// time - startTime = inBetweenTime
+// inBetweenTime modulous % inputFrequency = minuteMod
+// inputFrequency - minuteMod = minutesAway
+
+// math.chain(time)
+//		.minus(startTime)
+//		.modulous(inputFrequency)
+//		.done()??? dont think math.chain will work as you have to take the minuteMod from the inputFrequency
+
+//time = ;
+
+
+
 
     function(errorObject) {
         console.log("The read failed: " + errorObject.code);
@@ -87,27 +104,3 @@ database.ref().on("child_added", function(snapshot) {
 //       console.log("Errors handled: " + errorObject.code);
 //     });
 
-// work out the math for the countdown
-
-
-// convert start time to minutes/give a date? input firstArrival = startTime
-// convert current time to minutes "time"
-// time - startTime = inBetweenTime
-// inBetweenTime modulous % inputFrequency = minuteMod
-// inputFrequency - minuteMod = minutesAway
-
-// math.chain(time)
-//		.minus(startTime)
-//		.modulous(inputFrequency)
-//		.done()??? dont think math.chain will work as you have to take the minuteMod from the inputFrequency
-
-
-
-
-
-
-
-
-
-
-// display countdown/next train arriving in minutes
