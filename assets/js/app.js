@@ -16,11 +16,11 @@ var database = firebase.database();
 //global variables for train input values
 var inputTrainName = "";
 var inputDestination = "";
-var inputFirstArrival = "";
+var inputFirstArrival = moment(convertedDate).format('HH:mm');
 var inputFrequency = 0; 
 var nextArrival = ""; // time in military of next train arriving
 var minutesAway = ""; // how many minutes away the next train is
-var time = moment();
+var currentTime = moment();
 var minuteMod = 0;
 
 
@@ -66,6 +66,13 @@ database.ref("trains").on("child_added", function(snapshot) {
             "<td>" + snapshot.val().minutesAway + "</td></tr>");
     },
 
+
+// var inputFirstArrival = ""; // start time
+// var inputFrequency = 0; // how often the train runs
+// var nextArrival = ""; // time in military of next train arriving
+// var minutesAway = ""; // how many minutes away the next train is
+// var time = moment(); // current time
+// var minuteMod = 0; // modulous
     
 // convert start time to minutes/give a date? input firstArrival = startTime
 // convert current time to minutes "time"
@@ -78,7 +85,7 @@ database.ref("trains").on("child_added", function(snapshot) {
 //		.modulous(inputFrequency)
 //		.done()??? dont think math.chain will work as you have to take the minuteMod from the inputFrequency
 
-//time = ;
+time = moment(convertedDate).format('HH:mm');
 
 
 
