@@ -34,12 +34,12 @@ $("#submit").on("click", function() {
     var inputFrequency = $("#inputFrequency").val().trim();
 
     // push "object" to database child "trains"
-    database.ref().push({
+    database.ref().push({ //why can't i push this to a child in my database? why can i only push to the root?
         inputTrainName: inputTrainName,
         inputDestination: inputDestination,
         inputFirstArrival: inputFirstArrival,
         inputFrequency: inputFrequency,
-        dateAdded: database.ServerValue.TIMESTAMP
+        //dateAdded: database.ServerValue.TIMESTAMP
     });
 
     alert("train added!");
@@ -50,7 +50,7 @@ $("#submit").on("click", function() {
     console.log(inputFrequency);
 
 
-
+    return false;
 
 });
 
@@ -65,5 +65,14 @@ $("#submit").on("click", function() {
 // display/order by child in html
 
 // work out the math for the countdown
+
+
+// convert start time to minutes/give a date? input firstArrival = startTime
+// convert current time to minutes "time"
+// time - start time = inBetweenTime
+// inBetweenTime modulous % inputFrequency = minuteMod
+// inputFrequency - minuteMod = timeRemaining
+
+
 
 // display countdown/next train arriving in minutes
