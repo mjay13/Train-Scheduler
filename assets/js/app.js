@@ -40,7 +40,7 @@ $("#submit").on("click", function() {
         inputDestination: inputDestination,
         inputFirstArrival: inputFirstArrival,
         inputFrequency: inputFrequency,
-        //dateAdded: database.ServerValue.TIMESTAMP //giving me an error that TIMESTAMP is not defined
+        dateAdded: firebase.database.ServerValue.TIMESTAMP //giving me an error that TIMESTAMP is not defined
     });
 
     alert("train added!");
@@ -49,11 +49,6 @@ $("#submit").on("click", function() {
     console.log(inputDestination);
     console.log(inputFirstArrival);
     console.log(inputFrequency);
-
-	inputTrainName = "";
-	inputDestination = "";
-	inputFirstArrival = "";
-	inputFrequency = 0;
 
     return false;
 
@@ -76,35 +71,42 @@ database.ref().on("child_added", function(snapshot) {
     });
 
 
-// display/order by child in html
+// display/order by child in html --already done above-- commmented out below code that was redundant
 
-// displaying two of the last child hmm
-database.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function(snapshot) {
-    $("#trainInfo").append("<tr><td>" + snapshot.val().inputTrainName + "</td>" +
-        "<td>" + snapshot.val().inputDestination + "</td>" +
-        "<td>" + snapshot.val().inputFrequency + "</td>" +
-        "<td>" + snapshot.val().nextArrival + "</td>" +
-        "<td>" + snapshot.val().minutesAway + "</td></tr>");
-    console.log("i'm working");
+// // displaying two of the last child hmm
+// database.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function(snapshot) {
+//     $("#trainInfo").append("<tr><td>" + snapshot.val().inputTrainName + "</td>" +
+//         "<td>" + snapshot.val().inputDestination + "</td>" +
+//         "<td>" + snapshot.val().inputFrequency + "</td>" +
+//         "<td>" + snapshot.val().nextArrival + "</td>" +
+//         "<td>" + snapshot.val().minutesAway + "</td></tr>");
+//     console.log("i'm working");
 
-},
-function(errorObject) {
-      console.log("Errors handled: " + errorObject.code);
-    });
+// },
+// function(errorObject) {
+//       console.log("Errors handled: " + errorObject.code);
+//     });
 
 // work out the math for the countdown
 
 
 // convert start time to minutes/give a date? input firstArrival = startTime
 // convert current time to minutes "time"
-// time - starTime = inBetweenTime
+// time - startTime = inBetweenTime
 // inBetweenTime modulous % inputFrequency = minuteMod
 // inputFrequency - minuteMod = minutesAway
 
 // math.chain(time)
 //		.minus(startTime)
 //		.modulous(inputFrequency)
-//		.done()???
+//		.done()??? dont think math.chain will work as you have to take the minuteMod from the inputFrequency
+
+
+
+
+
+
+
 
 
 
