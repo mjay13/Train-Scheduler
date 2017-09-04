@@ -92,7 +92,7 @@ time = moment(convertedDate).format('HH:mm');
 
     function(errorObject) {
         console.log("The read failed: " + errorObject.code);
-    });
+    }
 
 
 // display/order by child in html --already done above-- commmented out below code that was redundant
