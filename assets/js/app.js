@@ -16,12 +16,13 @@ var database = firebase.database();
 //global variables for train input values
 var inputTrainName = "";
 var inputDestination = "";
-var inputFirstArrival = moment(convertedDate).format('HH:mm');
+var inputFirstArrival = moment().format('HH:mm'); // time the train starts running
 var inputFrequency = 0; 
-var nextArrival = ""; // time in military of next train arriving
-var minutesAway = ""; // how many minutes away the next train is
-var currentTime = moment();
-var minuteMod = 0;
+var currentTime = moment(); // current time
+var totalDiff = moment().diff(moment(inputFirstArrival), "minutes"); // difference between the when the train starts running and current time
+var minuteMod = totalDiff % inputFrequency; // modulous for the totalDiff mod. the frequency of the trains
+var minutesAway = inputFrequency - minuteMod; // how many minutes away the next train is
+var nextArrival = moment().add(minutesAway, "minutes").format("HH:mm"); // time in military of next train arriving
 
 
 // on click for submitting the form to firebase
@@ -64,7 +65,24 @@ database.ref("trains").on("child_added", function(snapshot) {
             "<td>" + snapshot.val().inputFrequency + "</td>" +
             "<td>" + snapshot.val().nextArrival + "</td>" +
             "<td>" + snapshot.val().minutesAway + "</td></tr>");
+            console.log(snapshot.val());
+
+            console.log("Start Time: " + inputFirstArrival); 
+            console.log("Current Time: " + moment(currentTime).format("HH:mm")); 
+            console.log("Total Time Difference: " + totalDiff); 
+            console.log("Modulous: " + minuteMod);
+            console.log("Minutes Until Next Train: " + minutesAway);
+            console.log("Next Train Arrives: " + nextArrival);
+
+            
+
+
+
     },
+
+       function(errorObject) {
+        console.log("The read failed: " + errorObject.code);
+    });
 
 
 // var inputFirstArrival = ""; // start time
@@ -85,14 +103,12 @@ database.ref("trains").on("child_added", function(snapshot) {
 //		.modulous(inputFrequency)
 //		.done()??? dont think math.chain will work as you have to take the minuteMod from the inputFrequency
 
-time = moment(convertedDate).format('HH:mm');
+// time = moment(convertedDate).format('HH:mm');
 
 
 
 
-    function(errorObject) {
-        console.log("The read failed: " + errorObject.code);
-    }
+ 
 
 
 // display/order by child in html --already done above-- commmented out below code that was redundant
