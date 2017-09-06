@@ -14,10 +14,11 @@ firebase.initializeApp(config);
 var database = firebase.database();
 
 //global variables for train input values
-var inputTrainName = "";
-var inputDestination = "";
-var inputFirstArrival = moment().format('HH:mm'); // time the train starts running
-var inputFrequency = 0; 
+var inputTrainName;
+var inputDestination;
+var inputFirstArrival;
+var firstArrival = moment(inputFirstArrival, "HH:mm").subtract(1, "years"); // time the train starts running
+var inputFrequency; 
 var currentTime = moment(); // current time
 var totalDiff = moment().diff(moment(inputFirstArrival), "minutes"); // difference between the when the train starts running and current time
 var minuteMod = totalDiff % inputFrequency; // modulous for the totalDiff mod. the frequency of the trains
@@ -43,7 +44,6 @@ $("#submit").on("click", function() {
         inputFrequency: inputFrequency,
         dateAdded: firebase.database.ServerValue.TIMESTAMP //giving me an error that TIMESTAMP is not defined -- fixed database here is not the same as the one i created! this is a standard for firebase that cannot be messed with
     });
-
     alert("train added!");
 
     console.log(inputTrainName);
@@ -51,14 +51,12 @@ $("#submit").on("click", function() {
     console.log(inputFirstArrival);
     console.log(inputFrequency);
 
-    return false;
+    // clear form here please
 
+    return false;
 });
 
 // diplay/add to html
-
-// not sure why is it giving me errors here -- update -- oh look i spelled function wrong!!!
-
 database.ref("trains").on("child_added", function(snapshot) {
         $("#trainInfo").append("<tr><td>" + snapshot.val().inputTrainName + "</td>" +
             "<td>" + snapshot.val().inputDestination + "</td>" +
@@ -73,13 +71,7 @@ database.ref("trains").on("child_added", function(snapshot) {
             console.log("Modulous: " + minuteMod);
             console.log("Minutes Until Next Train: " + minutesAway);
             console.log("Next Train Arrives: " + nextArrival);
-
-            
-
-
-
     },
-
        function(errorObject) {
         console.log("The read failed: " + errorObject.code);
     });
