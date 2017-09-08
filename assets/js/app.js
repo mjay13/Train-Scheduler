@@ -76,46 +76,10 @@ database.ref("trains").on("child_added", function(snapshot) {
         console.log("The read failed: " + errorObject.code);
     });
 
-
-// var inputFirstArrival = ""; // start time
-// var inputFrequency = 0; // how often the train runs
-// var nextArrival = ""; // time in military of next train arriving
-// var minutesAway = ""; // how many minutes away the next train is
-// var time = moment(); // current time
-// var minuteMod = 0; // modulous
     
 // convert start time to minutes/give a date? input firstArrival = startTime
 // convert current time to minutes "time"
 // time - startTime = inBetweenTime
 // inBetweenTime modulous % inputFrequency = minuteMod
 // inputFrequency - minuteMod = minutesAway
-
-// math.chain(time)
-//		.minus(startTime)
-//		.modulous(inputFrequency)
-//		.done()??? dont think math.chain will work as you have to take the minuteMod from the inputFrequency
-
-// time = moment(convertedDate).format('HH:mm');
-
-
-
-
- 
-
-
-// display/order by child in html --already done above-- commmented out below code that was redundant
-
-// // displaying two of the last child hmm
-// database.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function(snapshot) {
-//     $("#trainInfo").append("<tr><td>" + snapshot.val().inputTrainName + "</td>" +
-//         "<td>" + snapshot.val().inputDestination + "</td>" +
-//         "<td>" + snapshot.val().inputFrequency + "</td>" +
-//         "<td>" + snapshot.val().nextArrival + "</td>" +
-//         "<td>" + snapshot.val().minutesAway + "</td></tr>");
-//     console.log("i'm working");
-
-// },
-// function(errorObject) {
-//       console.log("Errors handled: " + errorObject.code);
-//     });
 
