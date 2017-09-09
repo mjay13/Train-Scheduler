@@ -13,7 +13,9 @@ firebase.initializeApp(config);
 // firebase var
 var database = firebase.database();
 
-//global variables for train input values
+//global variables for train input values //*******change to put the variables inside each of the functions
+
+// ********* they don't need to be global as the use of the database can grab all of the information essentially out of the on click function
 var inputTrainName;
 var inputDestination;
 var inputFirstArrival; //////
@@ -62,6 +64,16 @@ $("#submit").on("click", function() {
 
 // diplay/add to html
 database.ref("trains").on("child_added", function(snapshot) {
+ // create new variables to deal with the new information coming from the database. 
+
+
+
+
+
+
+
+
+// *********** change 
         $("#trainInfo").append("<tr><td>" + snapshot.val().inputTrainName + "</td>" +
             "<td>" + snapshot.val().inputDestination + "</td>" +
             "<td>" + snapshot.val().inputFrequency + "</td>" +
