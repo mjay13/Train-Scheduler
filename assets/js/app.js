@@ -38,20 +38,29 @@ $("#submit").on("click", function() {
     var inputFirstArrival = $("#inputFirstArrival").val().trim();
     var inputFrequency = $("#inputFrequency").val().trim();
 
-    // push "object" to database child "trains"
-    database.ref("trains").push({ //why can't i push this to a child/create a child in my database? why can i only push to the root? -- it needs to be in string form!
-        inputTrainName: inputTrainName,
-        inputDestination: inputDestination,
-        inputFirstArrival: inputFirstArrival,
-        inputFrequency: inputFrequency,
+    // variable to creating a new object with the individual train information stored inside
+    var trainObject = {
+        name: inputTrainName,
+        destination: inputDestination,
+        firstArrival: inputFirstArrival,
+        frequency: inputFrequency,
         dateAdded: firebase.database.ServerValue.TIMESTAMP //giving me an error that TIMESTAMP is not defined -- fixed database here is not the same as the one i created! this is a standard for firebase that cannot be messed with
-    });
+    };
+
+    // push "object" to database child "trains"
+    database.ref("trains").push(trainObject); //why can't i push this to a child/create a child in my database? why can i only push to the root? -- it needs to be in string form!
+        // inputTrainName: inputTrainName,
+        // inputDestination: inputDestination,
+        // inputFirstArrival: inputFirstArrival,
+        // inputFrequency: inputFrequency,
+        // dateAdded: firebase.database.ServerValue.TIMESTAMP //giving me an error that TIMESTAMP is not defined -- fixed database here is not the same as the one i created! this is a standard for firebase that cannot be messed with
+    
     alert("train added!");
 
-    console.log(inputTrainName);
-    console.log(inputDestination);
-    console.log(inputFirstArrival);
-    console.log(inputFrequency);
+    console.log(name);
+    console.log(destination);
+    console.log(firstArrival);
+    console.log(frequency);
 
     // clear form here please
     $("#inputTrainName").val("");
