@@ -16,14 +16,14 @@ var database = firebase.database();
 //global variables for train input values
 var inputTrainName;
 var inputDestination;
-var inputFirstArrival;
+var inputFirstArrival; //////
 var firstArrival = moment(inputFirstArrival, "HH:mm").subtract(1, "years"); // time the train starts running
 var inputFrequency; 
 var currentTime = moment(); // current time
-var totalDiff = moment().diff(moment(inputFirstArrival), "minutes"); // difference between the when the train starts running and current time
+var totalDiff = moment().diff(moment.unix(firstArrival), "minutes"); // difference between the when the train starts running and current time
 var minuteMod = totalDiff % inputFrequency; // modulous for the totalDiff mod. the frequency of the trains
 var minutesAway = inputFrequency - minuteMod; // how many minutes away the next train is
-var nextArrival = moment().add(minutesAway, "minutes").format("HH:mm"); // time in military of next train arriving
+var nextArrival = moment().add(minutesAway, "m").format("HH:mm"); // time in military of next train arriving
 
 
 // on click for submitting the form to firebase
@@ -52,6 +52,10 @@ $("#submit").on("click", function() {
     console.log(inputFrequency);
 
     // clear form here please
+    $("#inputTrainName").val("");
+    $("#inputDestination").val("");
+    $("#inputFirstArrival").val("");
+    $("#inputFrequency").val("");
 
     return false;
 });
