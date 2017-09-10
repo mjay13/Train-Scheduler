@@ -40,9 +40,9 @@
                                 <th>minutes away</th>
                             </tr>
                         </thead>
-                       <!-- table information -->
-                        <tbody id="trainInfo">   
-                    <!-- table information dynamically dumped here -->
+                        <!-- table information -->
+                        <tbody id="trainInfo">
+                            <!-- table information dynamically dumped here -->
                         </tbody>
                     </table>
                 </div>
@@ -78,8 +78,8 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-lg-10 col-lg-offset-2">
-                                        <button type="reset" id="reset" class="btn btn-default">Cancel</button>
-                                        <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+                                        <button type="reset" id="reset" class="btn btn-default" data-toggle="modal" data-target="#myModal">Cancel</button>
+                                        <button type="submit" id="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Submit</button>
                                     </div>
                                 </div>
                             </fieldset>
@@ -92,11 +92,29 @@
             <!-- closing wrap and container -->
         </div>
     </div>
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Some text in the modal.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Footer -->
     <footer class="footer">
         <p class="text-center">
-           <!-- &copy; Copyright 2017 Megan Jacobs -->
-           2017 Megan Jacobs
+            <!-- &copy; Copyright 2017 Megan Jacobs -->
+            2017 Megan Jacobs
         </p>
     </footer>
     <!-- Script -->
