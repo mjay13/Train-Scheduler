@@ -22,7 +22,7 @@ $("#submit").on("click", function() {
     // set variables to the submitted information
     var inputTrainName = $("#inputTrainName").val().trim();
     var inputDestination = $("#inputDestination").val().trim();
-    var inputFirstArrival = moment($("#inputFirstArrival").val().trim(), "HH:mm").subtract(1, "years").format("X");
+    var inputFirstArrival = moment($("#inputFirstArrival").val().trim(), "HH:mm").subtract(10, "years").format("X");
     var inputFrequency = $("#inputFrequency").val().trim();
 
     // variable to creating a new object with the individual train information stored inside
@@ -35,7 +35,7 @@ $("#submit").on("click", function() {
     };
 
     // push "object" to database child "trains"
-    database.ref("trains").push(trainObject);
+    database.ref().push(trainObject);
 
     // add a modal instead of an alert?
     alert("train added!");
@@ -48,11 +48,11 @@ $("#submit").on("click", function() {
 
     return false;
 
-    // log train info
-    console.log(trainObject.name);
-    console.log(trainObject.destination);
-    console.log(trainObject.firstArrival);
-    console.log(trainObject.frequency);
+    // // log train info -- not logging!?
+    // console.log(trainObject.name);
+    // console.log(trainObject.destination);
+    // console.log(trainObject.firstArrival);
+    // console.log(trainObject.frequency);
 
     // end of form submission    
 });
@@ -63,6 +63,7 @@ database.ref().on("child_added", function(snapshot) {
         currentTime = moment().format("HH:mm");
 
         // create new variables to deal with the new information coming from the database. 
+        var nameData = snapshot.val().name;
         var destinationData = snapshot.val().destination;
         var firstArrivalData = snapshot.val().firstArrival;
         var frequencyData = snapshot.val().frequency;
@@ -81,11 +82,11 @@ database.ref().on("child_added", function(snapshot) {
 
 
         // adds to html
-        $("#trainInfo").append("<tr><td>" + snapshot.val().name + "</td>" +
-            "<td>" + snapshot.val().destination + "</td>" +
-            "<td>" + snapshot.val().frequency + "</td>" +
-            "<td>" + snapshot.val().nextArrival + "</td>" +
-            "<td>" + snapshot.val().minutesAway + "</td></tr>");
+        $("#trainInfo").append("<tr><td>" + nameData + "</td>" +
+            "<td>" + destinationData + "</td>" +
+            "<td>" + frequencyData + "</td>" +
+            "<td>" + nextArrival + "</td>" +
+            "<td>" + minutesAway + "</td></tr>");
 
         // show train object data
         console.log(snapshot.val());
@@ -98,6 +99,7 @@ database.ref().on("child_added", function(snapshot) {
         console.log("Minutes Until Next Train: " + minutesAway);
         console.log("Next Train Arrives: " + nextArrival);
     },
+
     function(errorObject) {
         console.log("The read failed: " + errorObject.code);
 
